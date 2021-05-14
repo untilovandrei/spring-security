@@ -1,7 +1,6 @@
 package com.spring.security.config.provider;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +23,7 @@ public class PasswordAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
-        String inputPassword = authentication.getCredentials().toString();
+        String inputPassword = String.valueOf(authentication.getCredentials());
 
         UserDetails userDetails = userDetailsManager.loadUserByUsername(username);
         if(userDetails != null && passwordEncoder.matches(inputPassword, userDetails.getPassword())){
