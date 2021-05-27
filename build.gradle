@@ -1,8 +1,12 @@
 plugins {
-	id 'org.springframework.boot' version '2.4.5'
+	id 'org.springframework.boot' version '2.3.10.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'war'
+}
+
+ext {
+	set('springCloudVersion', "Hoxton.SR11")
 }
 
 group = 'com.spring'
@@ -21,13 +25,19 @@ repositories {
 
 dependencies {
 	//implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
 }
 
 test {
